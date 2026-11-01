@@ -1,0 +1,23 @@
+{
+  "name": "shiver",
+  "version": "0.1.0",
+  "description": "Make and play multiplayer horror games in the browser, with proximity voice chat monsters can hear.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch-path=server server/index.js",
+    "test": "./build.sh test",
+    "desktop": "./build.sh desktop"
+  },
+  "author": "Virat Reddy Kaukuntla",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "monaco-editor": "0.52.2",
+    "three": "0.170.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.156.0"
+  }
+}

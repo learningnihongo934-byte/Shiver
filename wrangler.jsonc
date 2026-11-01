@@ -1,0 +1,16 @@
+{
+  // Cloudflare deploy: ./build.sh deploy
+  "name": "shiver",
+  "main": "cf/worker.js",
+  "compatibility_date": "2025-10-01",
+  "assets": {
+    "directory": "cf/dist/public",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "html_handling": "none",
+    "run_worker_first": ["/api/*", "/ws", "/runtime/runtime.html"]
+  },
+  "durable_objects": { "bindings": [{ "name": "HUB", "class_name": "Hub" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Hub"] }],
+  "observability": { "enabled": true }
+}

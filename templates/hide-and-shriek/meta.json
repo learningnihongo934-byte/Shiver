@@ -1,0 +1,8 @@
+{
+  "title": "Hide & Shriek",
+  "description": "One of you is secretly The Hollow, a monster with a demon voice and thermal sight that can see every noise you make, even your voice. Everyone else repairs four generators and escapes through the north gate before dawn. The dead come back as ghosts to haunt the survivors. Asymmetric, 2-8 players. Solo players face an AI Hollow.",
+  "style": "vhs",
+  "maxPlayers": 8,
+  "tags": ["asymmetric", "pvp", "play-as-monster", "outdoor"],
+  "order": 2
+}

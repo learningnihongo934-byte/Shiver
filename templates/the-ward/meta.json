@@ -1,0 +1,8 @@
+{
+  "title": "The Ward",
+  "description": "Ward 4 lost power at 3:12 AM. Something on the ward hunts by sound, and it can hear your microphone. Find three fuses, restore the power and reach the elevator together. Whisper, or die. Co-op, 1-6 players.",
+  "style": "retro",
+  "maxPlayers": 6,
+  "tags": ["co-op", "stealth", "hospital", "mic"],
+  "order": 1
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Graveyard Shift",
+  "description": "Top-down pixel horror. Light the six grave candles before the bell strikes twelve. The Mourner crawls between the headstones, drawn to any sound. Co-op, 1-4 players.",
+  "style": "pixel",
+  "maxPlayers": 4,
+  "tags": ["co-op", "top-down", "pixel", "outdoor"],
+  "order": 4
+}

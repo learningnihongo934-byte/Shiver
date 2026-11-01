@@ -1,0 +1,71 @@
+{
+  "name": "shiver-desktop",
+  "version": "0.1.0",
+  "description": "Shiver desktop app",
+  "main": "main.cjs",
+  "author": "Virat Reddy Kaukuntla",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "tech.rennko.shiver",
+    "productName": "Shiver",
+    "asar": false,
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "main.cjs",
+      "bundle/**"
+    ],
+    "artifactName": "Shiver-${version}-${os}-${arch}.${ext}",
+    "mac": {
+      "category": "public.app-category.games",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Shiver uses your microphone for proximity voice chat, and monsters can hear it."
+      },
+      "identity": null
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Shiver"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png"
+    },
+    "afterPack": "./adhoc-sign.cjs"
+  },
+  "allowScripts": {
+    "electron@33.2.1": true
+  }
+}

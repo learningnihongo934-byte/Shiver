@@ -1,0 +1,104 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #000; color: #e8e2d0; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; user-select: none; }
+canvas { display: block; image-rendering: pixelated; }
+#root { position: fixed; inset: 0; }
+.hud { position: fixed; inset: 0; pointer-events: none; font-size: 14px; letter-spacing: 0.04em; }
+.hud.nohud > :not(.overlay):not(.custom):not(.note) { display: none !important; }
+.hidden { display: none !important; }
+
+.cross { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; background: rgba(240, 235, 220, 0.6); border-radius: 50%; }
+.prompt { position: absolute; left: 50%; top: calc(50% + 28px); transform: translateX(-50%); padding: 4px 10px; background: rgba(0, 0, 0, 0.55); color: #f2ecd8; opacity: 0; transition: opacity 0.15s; white-space: nowrap; }
+.prompt.show { opacity: 1; }
+.hold { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px; opacity: 0; }
+.hold.show { opacity: 1; }
+.hold svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.hold circle { fill: none; stroke-width: 3; }
+.hold .bg { stroke: rgba(255, 255, 255, 0.15); }
+.hold .fg { stroke: #e8e2d0; stroke-dasharray: 94.2; stroke-dashoffset: 94.2; }
+
+.objective { position: absolute; left: 24px; top: 20px; max-width: 46vw; padding: 6px 12px; border-left: 2px solid #a01818; background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), transparent); opacity: 0; transition: opacity 0.4s; }
+.objective.show { opacity: 1; }
+.objective.pulse { animation: pulse 1.2s; }
+@keyframes pulse { 0% { color: #ff5050; } 100% { color: #e8e2d0; } }
+
+.toasts { position: absolute; left: 50%; bottom: 24%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.toast { padding: 5px 14px; background: rgba(0, 0, 0, 0.6); text-shadow: 0 0 6px #000; animation: toastIn 0.3s; transition: opacity 0.6s; }
+.toast.out { opacity: 0; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(6px); } }
+.subtitle { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); max-width: 70vw; text-align: center; font-size: 17px; text-shadow: 0 0 8px #000, 0 0 2px #000; opacity: 0; transition: opacity 0.4s; }
+.subtitle.show { opacity: 1; }
+.subtitle b { color: #d04040; }
+
+.bars { position: absolute; left: 24px; bottom: 24px; display: flex; flex-direction: column; gap: 6px; }
+.bar { display: flex; align-items: center; gap: 8px; font-size: 10px; color: #a8a290; }
+.bar span { width: 64px; }
+.bar .track { width: 130px; height: 5px; background: rgba(255, 255, 255, 0.12); }
+.bar i { display: block; height: 100%; width: 100%; transition: width 0.15s; }
+.cbar { position: absolute; transform: translateX(-50%); }
+.cbar .track { width: 220px; }
+
+.mic { position: absolute; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 8px; font-size: 10px; color: #a8a290; }
+.mic-meter { width: 90px; height: 5px; background: rgba(255, 255, 255, 0.12); }
+.mic-meter i { display: block; height: 100%; width: 0; background: #e8e2d0; transition: width 0.08s; }
+.mic.loud .mic-meter i { background: #ff3030; }
+.mic-warn { position: absolute; right: 0; bottom: 16px; color: #ff4040; font-weight: bold; opacity: 0; white-space: nowrap; }
+.mic.loud .mic-warn { opacity: 1; animation: shakeX 0.15s infinite; }
+.mic.off { opacity: 0.45; }
+@keyframes shakeX { 50% { transform: translateX(2px); } }
+
+.inventory { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; gap: 6px; }
+.slot { padding: 5px 10px; border: 1px solid rgba(232, 226, 208, 0.25); background: rgba(0, 0, 0, 0.5); font-size: 12px; }
+
+.chat { position: absolute; left: 24px; bottom: 90px; width: 360px; opacity: 0; transition: opacity 0.4s; }
+.chat.active { opacity: 1; }
+.chat-log .line { padding: 2px 6px; background: rgba(0, 0, 0, 0.45); margin-top: 2px; font-size: 13px; overflow-wrap: anywhere; }
+.chat-input { display: none; width: 100%; margin-top: 6px; padding: 6px 8px; background: rgba(0, 0, 0, 0.8); border: 1px solid #555; color: #eee; font: inherit; outline: none; pointer-events: auto; }
+.chat.typing .chat-input { display: block; }
+
+.labels { position: absolute; inset: 0; }
+.tag { position: absolute; left: 0; top: 0; padding: 1px 6px; font-size: 11px; color: #ddd; background: rgba(0, 0, 0, 0.45); white-space: nowrap; }
+.tag.speaking { color: #8dff9a; box-shadow: 0 0 0 1px #3c8a46; }
+.tag.speaking::before { content: "◉ "; }
+
+.playerlist { position: absolute; left: 50%; top: 18%; transform: translateX(-50%); min-width: 340px; padding: 14px 18px; background: rgba(0, 0, 0, 0.8); border: 1px solid #333; }
+.playerlist h3 { margin: 0 0 10px; font-size: 13px; color: #a01818; letter-spacing: 0.2em; }
+.playerlist .row { display: flex; gap: 12px; padding: 4px 0; border-top: 1px solid #222; }
+.playerlist .name { flex: 1; }
+.playerlist .role { color: #888; }
+.playerlist .spk { color: #333; }
+.playerlist .spk.on { color: #6f6; }
+
+.overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.72); pointer-events: auto; text-align: center; }
+.overlay h1 { font-family: Georgia, serif; font-weight: normal; font-size: 46px; margin: 0 0 12px; letter-spacing: 0.06em; color: #d8d0b8; }
+.overlay h2 { font-weight: normal; letter-spacing: 0.3em; }
+.overlay p { font-size: 15px; color: #c8c0a8; }
+.overlay small { display: block; margin-top: 18px; color: #888; font-size: 11px; max-width: 640px; line-height: 1.7; }
+.overlay button { display: block; margin: 10px auto; min-width: 200px; padding: 10px 18px; background: transparent; border: 1px solid #6a1414; color: #e8e2d0; font: inherit; letter-spacing: 0.15em; cursor: pointer; }
+.overlay button:hover { background: #6a1414; }
+.overlay.start { cursor: pointer; }
+.overlay.start p { animation: blink 1.4s infinite; }
+.overlay.end .win h1 { color: #b8e0b0; }
+.overlay.end .lose h1, .overlay .end.lose h1 { color: #c02020; }
+.overlay.boot { background: #000; }
+.boot { letter-spacing: 0.4em; color: #666; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0.35; } }
+
+.note { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-1deg); width: min(520px, 86vw); max-height: 76vh; overflow: auto; padding: 28px 32px; background: #d8d0b8; color: #2a2418; font-family: "Courier New", monospace; box-shadow: 0 10px 60px #000; pointer-events: auto; }
+.note h2 { margin: 0 0 14px; font-size: 18px; }
+.note p { white-space: pre-wrap; line-height: 1.6; font-size: 14px; }
+.note small { color: #6a6048; }
+
+.locker { position: absolute; inset: 0; background: repeating-linear-gradient(180deg, #000 0 26px, transparent 26px 38px); box-shadow: inset 0 0 160px 80px #000; }
+.stamp { position: absolute; left: 24px; bottom: 76px; font-size: 22px; color: #f4f4f4; text-shadow: 2px 0 #f0f, -2px 0 #0ff; font-family: "VCR OSD Mono", ui-monospace, monospace; }
+.ghost-tip { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); max-width: 80vw; padding: 6px 12px; color: #b8c8ff; background: rgba(10, 16, 40, 0.6); font-size: 12px; text-align: center; }
+.hud.ghost .bars, .hud.ghost .inventory { display: none; }
+
+.custom { position: absolute; inset: 0; }
+.ctext { position: absolute; white-space: pre; text-shadow: 0 0 6px #000; }
+.cel { pointer-events: auto; }
+.cimg { position: absolute; transform: translate(-50%, -50%); background-repeat: no-repeat; image-rendering: pixelated; }
+.cine { position: fixed; inset: 0; pointer-events: none; }
+.choice { position: fixed; left: 50%; bottom: 18%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 5; }
+.choice p { margin: 0 0 6px; font-size: 17px; text-shadow: 0 0 8px #000; }
+.choice button { min-width: 260px; padding: 10px 18px; background: rgba(0, 0, 0, 0.75); border: 1px solid #6a1414; color: #e8e2d0; font: inherit; letter-spacing: 0.1em; cursor: pointer; }
+.choice button:hover { background: #6a1414; }

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shiver — make and play multiplayer horror games</title>
+<meta name="description" content="Shiver is a platform for creating and playing multiplayer horror games in your browser, with proximity voice chat that monsters can hear.">
+<link rel="icon" href="/web/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/web/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/web/css/app.css">
+</head>
+<body>
+<header class="top">
+  <a href="/" data-link class="logo"><img src="/web/icon.png" alt=""><span>SHIVER</span></a>
+  <nav>
+    <a href="/" data-link>Discover</a>
+    <a href="/studio" data-link>Create</a>
+    <a href="/docs" data-link>Docs</a>
+  </nav>
+  <form class="search" id="search"><input name="q" placeholder="Search horror games…" autocomplete="off"></form>
+  <div class="user" id="user"></div>
+</header>
+<main id="app"></main>
+<div id="modal-root"></div>
+<div class="grain"></div>
+<script type="module" src="/web/js/app.js"></script>
+</body>
+</html>

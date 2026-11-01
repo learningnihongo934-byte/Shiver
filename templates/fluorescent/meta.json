@@ -1,0 +1,8 @@
+{
+  "title": "Fluorescent",
+  "description": "An endless office maze of buzzing lights, built fresh from a new seed every round. Find three keycards and the exit. The Grinner only moves when nobody is looking at it, so someone has to keep watch. Co-op, 1-6 players.",
+  "style": "hd",
+  "maxPlayers": 6,
+  "tags": ["co-op", "maze", "procedural", "liminal"],
+  "order": 3
+}

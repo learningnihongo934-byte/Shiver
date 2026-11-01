@@ -1,0 +1,8 @@
+{
+  "title": "The Last Shift",
+  "description": "A 40-second noir short film made entirely with code: camera moves, an actor, dialogue, flickering lights and something in the doorway. Remix it to make your own movie or cutscene, then press ● Rec to export it as a video.",
+  "style": "noir",
+  "maxPlayers": 8,
+  "tags": ["movie", "short-film", "noir", "cutscene"],
+  "order": 5
+}
